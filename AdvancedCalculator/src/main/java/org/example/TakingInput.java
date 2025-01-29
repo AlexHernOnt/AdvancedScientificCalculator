@@ -47,6 +47,12 @@ public class TakingInput {
                     cleanScreen();
                     break;
                 }
+                case "3": {
+                    inputTrigonometry();
+                    sc.nextLine();
+                    cleanScreen();
+                    break;
+                }
                 case "exit":
                     break;
                 default:
@@ -162,6 +168,73 @@ public class TakingInput {
      ** Trigonometry
      */
 
+    public void inputTrigonometry() {
+        boolean exit = false;
+        cleanScreen();
+        String trigo;
+
+        System.out.println("Please select your desired trigonometry operation \n1: - Sine.\n2: - Cosine.\n3: - Tangent.\n3: - Cotangent.");
+
+        input = sc.nextLine().toLowerCase();
+        System.out.println(input);
+
+        switch (input) {
+            case "1": {
+                trigo = "Sine";
+                break;
+            }
+            case "2": {
+                trigo = "Cosine";
+                break;
+            }
+            case "3": {
+                trigo = "Tangent";
+                break;
+            }
+            case "4": {
+                trigo = "Cotangent";
+                break;
+            }
+            default:
+                return;
+        }
+
+
+        System.out.println("Please input your number:");
+        while (!exit) {
+            try {
+                dInput = sc.nextDouble();
+                exit = true;
+            } catch (Exception e) {
+                cleanScreen();
+                System.out.println("Please, input a valid number:");
+                sc.nextLine();
+            }
+        }
+        exit = false;
+        cleanScreen();
+        advancedCalculator.setN1(dInput);
+        double result = 0;
+
+        try {
+            switch (trigo) {
+                case "Sine":
+                    result = advancedCalculator.performOperationSin();
+                    break;
+                case "Cosine":
+                    result = advancedCalculator.performOperationCos();
+                    break;
+                case "Tangent":
+                    result = advancedCalculator.performOperationTan();
+                    break;
+                case "Cotangent":
+                    result = advancedCalculator.performOperationCot();
+                    break;
+            }
+            System.out.print("This is the result: " + result + "\n1: - ok\n");
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic Error");
+        }
+        input = sc.nextLine();
+    }
 }
-
-
