@@ -1,14 +1,14 @@
 package org.example;
 
 import org.example.Calculation.AdvancedCalculator;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TakingInput {
     Scanner sc = new Scanner(System.in);
     String input;
     double dInput;
-
+    ArrayList<String> history = new ArrayList<>();
     AdvancedCalculator advancedCalculator = new AdvancedCalculator();
 
     TakingInput() {
@@ -29,7 +29,7 @@ public class TakingInput {
         System.out.println("Welcome to the Calculator!");
 
         do {
-            System.out.println("Please select your desired operation \n1: - Power of.\n2: - Square of.\n3: - Trigonometry.");
+            System.out.println("Please select your desired operation \n1: - Power of.\n2: - Square of.\n3: - Trigonometry.\n4: - Show History");
 
             input = sc.nextLine().toLowerCase();
             System.out.println(input);
@@ -52,6 +52,20 @@ public class TakingInput {
                     sc.nextLine();
                     cleanScreen();
                     break;
+                }
+                case "4": {
+                    cleanScreen();
+                    if (history.isEmpty()) {
+                        System.out.println("No operations made yet.");
+                    } else {
+                        System.out.println("Operation History:");
+
+                        history.forEach(str -> System.out.println(str));
+                        System.out.println("1: - ok");
+                        sc.nextLine();
+                        cleanScreen();
+                        break;
+                    }
                 }
                 case "exit":
                     break;
@@ -101,6 +115,7 @@ public class TakingInput {
         cleanScreen();
         advancedCalculator.setN2(dInput);
         double result = advancedCalculator.performOperationPow();
+        history.add("Power of: base = " + advancedCalculator.getN1() + ", exponent = " + advancedCalculator.getN2() + ", result = " + result);
 
         System.out.print("This is the result: " + result + "\n1: - ok\n");
 
@@ -154,6 +169,7 @@ public class TakingInput {
             if (Double.isNaN(result)) {
                 throw new ArithmeticException("Error: the operation resulted in Nan: not a number" + "\n1: - ok\n");
             }
+            history.add("Square root: radical = " + advancedCalculator.getN1() + ", index = " + advancedCalculator.getN2() + ", result = " + result);
             System.out.print("This is the result: " + result + "\n1: - ok\n");
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
@@ -198,8 +214,6 @@ public class TakingInput {
             default:
                 return;
         }
-
-
         System.out.println("Please input your number:");
         while (!exit) {
             try {
@@ -231,6 +245,7 @@ public class TakingInput {
                     result = advancedCalculator.performOperationCot();
                     break;
             }
+            history.add(trigo + ": " + advancedCalculator.getN1() + ", result = " + result);
             System.out.print("This is the result: " + result + "\n1: - ok\n");
         } catch (ArithmeticException e) {
             System.out.println("Arithmetic Error");

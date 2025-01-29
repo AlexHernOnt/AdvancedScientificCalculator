@@ -1,5 +1,8 @@
 package org.example.Calculation;
-import java.util.Scanner;
+
+import org.example.customExceptions.ExceptionListNotFit;
+
+import java.util.List;
 
 public abstract class Calculator {
 
@@ -7,10 +10,25 @@ public abstract class Calculator {
     double n2;
 
 
-    protected Calculator(){
+    protected Calculator() {
         n1 = 0;
         n2 = 0;
     }
+
+    protected Calculator(double n1, double n2) {
+        this.n1 = n1;
+        this.n2 = n2;
+    }
+
+    protected Calculator(List<Double> numbers) {
+        if (numbers != null && numbers.size() >= 2) {
+            this.n1 = numbers.get(0);
+            this.n2 = numbers.get(1);
+        } else {
+            throw new ExceptionListNotFit();
+        }
+    }
+
 
     public double getN2() {
         return n2;
