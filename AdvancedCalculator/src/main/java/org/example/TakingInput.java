@@ -1,7 +1,6 @@
 package org.example;
 
-import org.example.Calculation.CalPowerOf;
-import org.example.Calculation.CalSqrt;
+import org.example.Calculation.AdvancedCalculator;
 
 import java.util.Scanner;
 
@@ -10,9 +9,7 @@ public class TakingInput {
     String input;
     double dInput;
 
-    CalPowerOf calPowerOf = new CalPowerOf();
-    CalSqrt calSqrt = new CalSqrt();
-
+    AdvancedCalculator advancedCalculator = new AdvancedCalculator();
 
     TakingInput() {
         beganApplication();
@@ -32,7 +29,7 @@ public class TakingInput {
         System.out.println("Welcome to the Calculator!");
 
         do {
-            System.out.println("Please select your desired operation \n1: - Power of.\n2: - Square of.");
+            System.out.println("Please select your desired operation \n1: - Power of.\n2: - Square of.\n3: - Trigonometry.");
 
             input = sc.nextLine().toLowerCase();
             System.out.println(input);
@@ -80,7 +77,7 @@ public class TakingInput {
             }
         }
 
-        calPowerOf.setN1(dInput);
+        advancedCalculator.setN1(dInput);
         exit = false;
         System.out.println("Please input your exponent number:");
         while (!exit) {
@@ -96,8 +93,8 @@ public class TakingInput {
 
         exit = false;
         cleanScreen();
-        calPowerOf.setN2(dInput);
-        double result = calPowerOf.performOperation();
+        advancedCalculator.setN2(dInput);
+        double result = advancedCalculator.performOperationPow();
 
         System.out.print("This is the result: " + result + "\n1: - ok\n");
 
@@ -128,7 +125,7 @@ public class TakingInput {
             }
         }
 
-        calSqrt.setN1(dInput);
+        advancedCalculator.setN1(dInput);
         exit = false;
         System.out.println("Please input your index number:");
         while (!exit) {
@@ -144,8 +141,8 @@ public class TakingInput {
 
         exit = false;
         cleanScreen();
-        calSqrt.setN2(dInput);
-        double result = calSqrt.performOperation();
+        advancedCalculator.setN2(dInput);
+        double result = advancedCalculator.performOperationRoot();
 
         try {
             if (Double.isNaN(result)) {
@@ -160,6 +157,11 @@ public class TakingInput {
             exit = true;
         }
     }
+
+    /*
+     ** Trigonometry
+     */
+
 }
 
 
