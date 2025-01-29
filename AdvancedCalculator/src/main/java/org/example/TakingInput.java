@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Calculation.CalPowerOf;
+import org.example.Calculation.CalSqrt;
 
 import java.util.Scanner;
 
@@ -9,26 +10,29 @@ public class TakingInput {
     String input;
     double dInput;
 
+    CalPowerOf calPowerOf = new CalPowerOf();
+    CalSqrt calSqrt = new CalSqrt();
+
+
     TakingInput() {
         beganApplication();
     }
 
     public void cleanScreen() {
         int i = 0;
-        while (i++ < 25)
-            System.out.println();
+        while (i++ < 25) System.out.println();
     }
 
     /*
-    ** Intro
-    */
+     ** Intro
+     */
 
     public void beganApplication() {
         cleanScreen();
         System.out.println("Welcome to the Calculator!");
 
         do {
-            System.out.println("Please select your desired operation \n1: - Power of.\n2: - Square root");
+            System.out.println("Please select your desired operation \n1: - Power of.\n2: - Square of.");
 
             input = sc.nextLine().toLowerCase();
             System.out.println(input);
@@ -56,11 +60,10 @@ public class TakingInput {
     }
 
     /*
-    ** Power Of
-    */
+     ** Power Of
+     */
 
     public void inputPowerOf() {
-        CalPowerOf calPowerOf = new CalPowerOf();
         boolean exit = false;
 
         cleanScreen();
@@ -105,15 +108,14 @@ public class TakingInput {
     }
 
     /*
-    ** Sq root
-    */
+     ** Sq root
+     */
 
     public void inputSquareRoot() {
-        CalPowerOf calPowerOf = new CalPowerOf();
         boolean exit = false;
 
         cleanScreen();
-        System.out.println("Please input your base number:");
+        System.out.println("Please input your radical number: (index) √ (radical)");
 
         while (!exit) {
             try {
@@ -126,9 +128,9 @@ public class TakingInput {
             }
         }
 
-        calPowerOf.setN1(dInput);
+        calSqrt.setN1(dInput);
         exit = false;
-        System.out.println("Please input your exponent number:");
+        System.out.println("Please input your index number:");
         while (!exit) {
             try {
                 dInput = sc.nextDouble();
@@ -142,11 +144,17 @@ public class TakingInput {
 
         exit = false;
         cleanScreen();
-        calPowerOf.setN2(dInput);
-        double result = calPowerOf.performOperation();
+        calSqrt.setN2(dInput);
+        double result = calSqrt.performOperation();
 
-        System.out.print("This is the result: " + result + "\n1: - ok\n");
-
+        try {
+            if (Double.isNaN(result)) {
+                throw new ArithmeticException("Error: the operation resulted in Nan: not a number" + "\n1: - ok\n");
+            }
+            System.out.print("This is the result: " + result + "\n1: - ok\n");
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        }
         while (!exit) {
             input = sc.nextLine();
             exit = true;
